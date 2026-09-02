@@ -11,3 +11,7 @@
 # Editor / OS noise
 .DS_Store
 *.swp
+
+# Godot must not scan the exported build as project content, or each export
+# gets baked into the next one. web/.gdignore stops the scan; this is a belt.
+web/*.import
