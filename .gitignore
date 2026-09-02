@@ -1,0 +1,9 @@
+# Godot 4 generated files
+.godot/
+/android/
+export_presets.cfg
+*.translation
+
+# Editor / OS noise
+.DS_Store
+*.swp

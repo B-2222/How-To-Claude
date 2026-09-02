@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/fx/impact.gd" id="1_impact"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_impact"]
+radius = 0.12
+height = 0.24
+radial_segments = 8
+rings = 4
+
+[node name="Impact" type="Node3D"]
+script = ExtResource("1_impact")
+
+[node name="Shell" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_impact")
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.78, 0.45, 1)
+light_energy = 3.0
+omni_range = 3.5

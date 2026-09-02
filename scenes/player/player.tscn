@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Resource" path="res://resources/movement/default.tres" id="2_tuning"]
+[ext_resource type="Script" path="res://scripts/player/camera_shake.gd" id="3_shake"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/mk1_rifle.tscn" id="4_rifle"]
+[ext_resource type="Script" path="res://scripts/player/player_audio.gd" id="5_audio"]
+[ext_resource type="AudioStream" path="res://audio/jump.wav" id="6_jump"]
+[ext_resource type="AudioStream" path="res://audio/land.wav" id="7_land"]
+[ext_resource type="AudioStream" path="res://audio/slide.wav" id="8_slide"]
+[ext_resource type="AudioStream" path="res://audio/dive.wav" id="9_dive"]
+
+[sub_resource type="CapsuleShape3D" id="Capsule_player"]
+radius = 0.38
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+tuning = ExtResource("2_tuning")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Capsule_player")
+
+[node name="CeilingCheck" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 1.7, 0)
+collision_mask = 1
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Shake" type="Node3D" parent="Head"]
+script = ExtResource("3_shake")
+
+[node name="Camera" type="Camera3D" parent="Head/Shake"]
+fov = 90.0
+near = 0.05
+far = 400.0
+
+[node name="WeaponMount" type="Node3D" parent="Head/Shake/Camera"]
+
+[node name="Rifle" parent="Head/Shake/Camera/WeaponMount" instance=ExtResource("4_rifle")]
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("5_audio")
+
+[node name="Jump" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("6_jump")
+
+[node name="Land" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_land")
+
+[node name="Slide" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_slide")
+
+[node name="Dive" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_dive")

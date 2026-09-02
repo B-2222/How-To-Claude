@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="MovementTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/movement_tuning.gd" id="1_tuning"]
+
+[resource]
+script = ExtResource("1_tuning")
+resource_name = "Movement - Default"
+walk_speed = 7.2
+sprint_speed = 9.4
+crouch_speed = 3.6
+ground_accel = 14.0
+friction = 6.2
+stop_speed = 2.2
+air_accel = 150.0
+air_speed_cap = 1.4
+tickrate_normalised_air_cap = true
+max_air_speed = 30.0
+gravity = 21.0
+jump_velocity = 6.4
+auto_hop = true
+jump_buffer = 0.12
+coyote_time = 0.1
+stand_height = 1.8
+crouch_height = 1.05
+head_offset = 0.2
+stance_speed = 14.0
+slide_min_speed = 6.0
+slide_entry_speed = 12.0
+slide_friction = 0.45
+slide_steer = 2.4
+slide_exit_speed = 4.0
+slide_max_time = 1.4
+slide_cooldown = 0.45
+slide_cancel_cooldown = 0.18
+slide_slope_accel = 14.0
+dive_time_scale = 0.3
+dive_duration = 1.5
+dive_cooldown = 6.0
+dive_up_velocity = 5.2
+dive_forward_boost = 1.25
+dive_min_speed = 8.0
+dive_air_control = 0.55
+strafe_roll_deg = 1.4
+slide_roll_deg = 6.0
+roll_speed = 9.0
+land_dip = 0.18
+bob_rate = 1.1
+bob_amount = 0.035
+fov_per_speed = 1.1
+fov_max_gain = 22.0
+dive_fov_gain = 10.0
+fov_blend_speed = 7.0
+floor_max_angle_deg = 47.0
+floor_snap_length = 0.25
