@@ -7,10 +7,14 @@ hit a target, not from hitting it.
 
 ---
 
-## Running it
+## Playing it
 
-Open the folder in Godot 4.3 or newer and press F5. `scenes/main.tscn` is the
-main scene.
+**In a browser:** the repository publishes `web/` to GitHub Pages on every push,
+so the latest build is playable at the Pages URL for this repository. Click the
+canvas to lock the mouse, press Escape to release it.
+
+**On desktop:** open the folder in Godot 4.3 or newer and press F5.
+`scenes/main.tscn` is the main scene.
 
 ### Controls
 
@@ -19,14 +23,17 @@ main scene.
 | WASD | Move |
 | Shift | Sprint |
 | Space | Jump. **Hold** it to auto-hop on landing |
-| Ctrl | Crouch, or slide if you are moving fast enough |
-| Ctrl release mid-slide | Slide-cancel |
+| C or Ctrl | Crouch, or slide if you are moving fast enough |
+| Release it mid-slide | Slide-cancel |
 | Q | Slow-motion dive |
 | Left mouse | Fire |
 | Right mouse | Aim down sights |
 | F3 | Toggle the help overlay |
 | Backspace | Restart the scene |
 | Esc | Release the mouse |
+
+In a browser, use **C** rather than Ctrl. Ctrl+W closes the tab and no page can
+intercept it, so Ctrl plus a strafe is a trap. Both keys work everywhere.
 
 ### How to actually build speed
 
@@ -171,6 +178,46 @@ you to shoot mid-air.
 
 ---
 
+## The web build
+
+Godot 4.3 has no Forward+ backend for the browser, so the web build runs the
+Compatibility renderer on WebGL 2. Feature-tag overrides in `project.godot` keep
+the desktop build on Forward+; only the browser drops down.
+
+It is exported with **thread support off**. Threaded Godot web builds need
+`SharedArrayBuffer`, which needs the COOP and COEP cross-origin isolation
+headers, which GitHub Pages cannot set. A single-threaded build needs neither
+and works on any static host.
+
+To rebuild it, install the 4.3 export templates once, then:
+
+```
+godot --headless --path . --export-release "Web" web/index.html
+```
+
+Commit the result. `.github/workflows/pages.yml` publishes `web/` on push. It
+deliberately does not build in CI: fetching the editor and the 1 GB template
+package on every push costs far more than committing a 35 MB export.
+
+To test the export locally, serve it over HTTP rather than opening the file
+directly, because browsers block `fetch` on `file://`:
+
+```
+npx http-server web -p 8099
+```
+
+### Compatibility renderer differences
+
+- **Directional shadows are switched off in the browser.** Under Compatibility
+  the nearest few metres of ground render fully shadowed. It is not a bias
+  problem: sweeping shadow bias, normal bias, split count and shadow distance
+  moves the boundary by under 1% of the screen, and it reproduces with a stock
+  `StandardMaterial3D`, so it is not the greybox shader either. Turning the
+  shadow pass off is the only thing that clears it, and a greybox loses little.
+  `Main.disable_shadows_on_compatibility` turns the workaround off.
+- **SSAO is disabled**, because it is a Forward+ feature.
+- MSAA and shadow filtering are lowered by `.web` overrides in `project.godot`.
+
 ## Known limitations at Phase 1
 
 - The view model is a child of the main camera, so it clips into walls when you
@@ -182,6 +229,10 @@ you to shoot mid-air.
   ledge overhanging only the edge of the capsule will not block standing.
 - Labels use Godot's default proportional font, so the HUD readout columns do not
   align perfectly.
+- The Forward+ desktop path could not be verified in the environment this was
+  built in: it has software OpenGL but no software Vulkan, so every screenshot
+  here is from the Compatibility renderer. Desktop is the better-tested Godot
+  path, but it is unverified here.
 
 ---
 
@@ -214,6 +265,18 @@ turn   300 deg/s   peak  16.41 m/s
 turn   380 deg/s   peak  16.10 m/s
 turn   460 deg/s   peak  13.34 m/s
 ```
+
+There is also a rendering probe. It needs a display but not a GPU, and writes
+screenshots plus a numeric report to `user://`, so a lighting or renderer
+regression can be measured rather than eyeballed:
+
+```
+xvfb-run -a godot --path . --rendering-method gl_compatibility \
+  --rendering-driver opengl3 --resolution 1280x720 tools/screenshot_test.tscn
+```
+
+It prints `black rows` per shot, which counts unlit rows at the bottom of the
+view. A healthy capture reads zero; the shadow bug above showed up as 29%.
 
 Under `--headless` Godot's dummy renderer logs `Parameter "m" is null` for every
 mesh with a `material_override`. It is renderer noise, not a project error, and

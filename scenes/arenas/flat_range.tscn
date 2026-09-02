@@ -211,7 +211,7 @@ material_override = ExtResource("1_grid")
 shape = SubResource("Shape_4")
 
 [node name="RampWest" type="StaticBody3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 0.978148, -0.207912, 0, 0.207912, 0.978148, -20, 1, 30)
+transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, -20, 1, 30)
 collision_layer = 1
 collision_mask = 0
 
@@ -223,7 +223,7 @@ material_override = ExtResource("1_grid")
 shape = SubResource("Shape_5")
 
 [node name="RampEast" type="StaticBody3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 0.978148, -0.207912, 0, 0.207912, 0.978148, 20, 1, 30)
+transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 20, 1, 30)
 collision_layer = 1
 collision_mask = 0
 

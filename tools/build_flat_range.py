@@ -95,9 +95,16 @@ def fmt(v):
 
 
 def transform(pos, rot):
+    """Serialise a Transform3D the way .tscn expects it.
+
+    The literal is stored ROW BY ROW: Transform3D(a,b,c, d,e,f, g,h,i, ...)
+    gives basis.x = (a, d, g). Writing the three axis vectors back to back
+    instead silently stores the transpose, which for a rotation is its inverse,
+    so ramps tilt the wrong way and lights point backwards.
+    """
     cols = basis_columns(*rot)
-    values = [c for col in cols for c in col] + list(pos)
-    return "Transform3D(%s)" % ", ".join(fmt(v) for v in values)
+    rows = [cols[axis][component] for component in range(3) for axis in range(3)]
+    return "Transform3D(%s)" % ", ".join(fmt(v) for v in rows + list(pos))
 
 
 def main():

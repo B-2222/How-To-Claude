@@ -11,7 +11,7 @@ signal hit_confirmed(shot: Dictionary)
 
 @export var stats: WeaponStats
 ## Local position the model blends to when aiming, from its authored hip position.
-@export var ads_position := Vector3(0.0, -0.075, -0.32)
+@export var ads_position := Vector3(0.0, -0.075, -0.24)
 @export var tracer_scene: PackedScene
 @export var impact_scene: PackedScene
 

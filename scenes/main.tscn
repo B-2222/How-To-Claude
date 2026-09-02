@@ -23,7 +23,7 @@ sky = SubResource("Sky_main")
 ambient_light_source = 3
 ambient_light_sky_contribution = 0.85
 tonemap_mode = 3
-tonemap_white = 6.0
+tonemap_white = 1.0
 ssao_enabled = true
 ssao_radius = 1.4
 ssao_intensity = 1.6
@@ -123,9 +123,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_constants/line_spacing = 3
 theme_override_font_sizes/font_size = 14
 text = "WASD move    Shift sprint    Space jump (hold to auto-hop)
-Ctrl slide (release mid-slide to slide-cancel)
+C or Ctrl slide (release mid-slide to slide-cancel)
 Q slow-motion dive    LMB fire    RMB aim
 Backspace restart    F3 hide this    Esc free mouse
+In a browser use C to slide: Ctrl+W closes the tab.
 
 Build speed: jump, then hold a strafe key and turn the
 mouse the same way. Do not hold W in the air."
