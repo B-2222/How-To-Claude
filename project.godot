@@ -16,6 +16,11 @@ config/icon="res://icon.svg"
 window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="canvas_items"
+; A browser window is whatever shape the user made it. The default "keep" aspect
+; letterboxes anything that is not 16:9; "expand" fills the window instead.
+; Camera3D keeps its vertical FOV, so a wider window simply shows more to the
+; sides rather than distorting anything.
+window/stretch/aspect="expand"
 window/vsync/vsync_mode=1
 
 [physics]
