@@ -9,9 +9,10 @@ hit a target, not from hitting it.
 
 ## Playing it
 
-**In a browser:** the repository publishes `web/` to GitHub Pages on every push,
-so the latest build is playable at the Pages URL for this repository. Click the
-canvas to lock the mouse, press Escape to release it.
+**In a browser:** <https://b-2222.github.io/How-To-Claude/>. GitHub Pages serves
+this repository's root branch, so `index.html` is a small landing page and
+`web/index.html` is the game itself. Click the canvas to lock the mouse, press
+Escape to release it.
 
 **On desktop:** open the folder in Godot 4.3 or newer and press F5.
 `scenes/main.tscn` is the main scene.
@@ -195,9 +196,14 @@ To rebuild it, install the 4.3 export templates once, then:
 godot --headless --path . --export-release "Web" web/index.html
 ```
 
-Commit the result. `.github/workflows/pages.yml` publishes `web/` on push. It
-deliberately does not build in CI: fetching the editor and the 1 GB template
-package on every push costs far more than committing a 35 MB export.
+Commit the result and push; GitHub Pages serves the branch directly, so the new
+build is live once its Pages run finishes.
+
+There is deliberately no CI build step. Exporting needs the Godot editor binary
+plus the ~1 GB export template package, and fetching both on every push costs far
+more than committing a 35 MB export. There is also deliberately no Pages
+*workflow*: this repository already had the branch-based Pages builder enabled,
+and two deployers racing over one site is worse than either alone.
 
 To test the export locally, serve it over HTTP rather than opening the file
 directly, because browsers block `fetch` on `file://`:

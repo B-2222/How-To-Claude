@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trickshot Range</title>
+<style>
+  :root {
+    --bg: #101216;
+    --panel: #171a20;
+    --line: #262b34;
+    --text: #e6e9f0;
+    --dim: #99a1b0;
+    --accent: #ff5a3c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 6vh 20px;
+  }
+  main { width: 100%; max-width: 640px; }
+  h1 {
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+  }
+  .sub { color: var(--dim); margin: 0 0 28px; }
+  .play {
+    display: inline-block;
+    background: var(--accent);
+    color: #14161a;
+    font-weight: 650;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+  }
+  .play:hover { filter: brightness(1.1); }
+  .note { color: var(--dim); font-size: 0.9rem; margin-top: 12px; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 30px;
+  }
+  h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em;
+       color: var(--dim); margin: 0 0 14px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 5px 0; vertical-align: top; }
+  td:first-child { width: 42%; color: var(--dim); padding-right: 16px; }
+  kbd {
+    background: #232830; border: 1px solid var(--line); border-bottom-width: 2px;
+    border-radius: 4px; padding: 1px 6px; font: inherit; font-size: 0.85em;
+  }
+  .warn { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { color: var(--dim); font-size: 0.85rem; margin-top: 30px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Trickshot Range</h1>
+  <p class="sub">An arena trickshot shooter. Phase 1: movement and shooting feel.</p>
+
+  <a class="play" href="web/index.html">Play in the browser</a>
+  <p class="note">Loads about 35 MB. Click the game to lock the mouse, press
+  <kbd>Esc</kbd> to release it. Desktop browser with WebGL 2 required.</p>
+
+  <section>
+    <h2>Controls</h2>
+    <table>
+      <tr><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></td><td>Move</td></tr>
+      <tr><td><kbd>Shift</kbd></td><td>Sprint</td></tr>
+      <tr><td><kbd>Space</kbd></td><td>Jump. Hold it to auto-hop on landing</td></tr>
+      <tr><td><kbd>C</kbd></td><td>Crouch, or slide above 6 m/s. Release mid-slide to slide-cancel</td></tr>
+      <tr><td><kbd>Q</kbd></td><td>Slow-motion dive</td></tr>
+      <tr><td>Left mouse</td><td>Fire</td></tr>
+      <tr><td>Right mouse</td><td>Aim down sights</td></tr>
+      <tr><td><kbd>F3</kbd></td><td>Toggle the help overlay</td></tr>
+      <tr><td><kbd>Backspace</kbd></td><td>Restart</td></tr>
+    </table>
+    <p class="note warn">Use <kbd>C</kbd> to slide, not <kbd>Ctrl</kbd>.
+    <kbd>Ctrl</kbd>+<kbd>W</kbd> closes the tab and no page can stop it.</p>
+  </section>
+
+  <section>
+    <h2>How to build speed</h2>
+    <p style="margin:0">Jump, then in the air hold <strong>one</strong> strafe key
+    and turn the mouse the same way, smoothly. Do not hold <kbd>W</kbd>. Around
+    240 to 380 degrees per second of turn is the sweet spot. Hold
+    <kbd>Space</kbd> the whole time so you re-jump the instant you land.</p>
+    <p class="note">The speed meter has ticks at walk and sprint speed. Everything
+    right of the second tick you earned by strafing.</p>
+  </section>
+
+  <footer>
+    Source, architecture notes and design trade-offs are in the
+    <a href="https://github.com/B-2222/How-To-Claude">repository README</a>.
+  </footer>
+</main>
+</body>
+</html>
