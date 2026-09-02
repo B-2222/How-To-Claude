@@ -1,7 +1,11 @@
 # Godot 4 generated files
 .godot/
 /android/
-export_presets.cfg
+# export_presets.cfg is normally ignored because it can hold signing keys and
+# store credentials. This project's only preset is the Web one and it holds
+# neither, so it is committed to keep the browser build reproducible.
+# Re-add this line if you ever add a signed mobile or console preset.
+# export_presets.cfg
 *.translation
 
 # Editor / OS noise
